@@ -26,3 +26,13 @@ output "organizations_organization_master_account_id" {
   description = "Identifier of the master account"
   value       = aws_organizations_organization.this.master_account_id
 }
+
+output "organizations_organization_accounts" {
+  description = "List of organization accounts including the master account"
+  value       = aws_organizations_organization.this.accounts
+}
+
+output "organizations_organization_non_master_accounts" {
+  description = "List of organization accounts excluding the master account"
+  value       = aws_organizations_organization.this.non_master_accounts
+}
