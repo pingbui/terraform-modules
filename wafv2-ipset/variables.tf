@@ -1,6 +1,13 @@
 variable "name" {
   description = "A friendly name of the IP set"
   type        = string
+  default     = "ipset"
+}
+
+variable "custom_name" {
+  description = "A custome name of the IP set"
+  type        = string
+  default     = ""
 }
 
 variable "description" {
