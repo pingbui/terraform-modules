@@ -77,3 +77,16 @@ data "aws_ami" "ubuntu_2004" {
     values = ["x86_64"]
   }
 }
+
+data "aws_ami" "amazon_linux_ecs" {
+  most_recent = true
+  owners      = ["amazon"]
+  filter {
+    name   = "name"
+    values = ["amzn-ami-*-amazon-ecs-optimized"]
+  }
+  filter {
+    name   = "owner-alias"
+    values = ["amazon"]
+  }
+}

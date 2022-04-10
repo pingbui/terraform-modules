@@ -27,3 +27,8 @@ output "ubuntu_2004_aws_ami_id" {
   description = "AMI ID of Ubuntu 20.04"
   value       = data.aws_ami.ubuntu_2004.id
 }
+
+output "amazon_linux_ecs_id" {
+  description = "AMI ID of Amazon Linux ECS"
+  value       = data.aws_ami.amazon_linux_ecs.id
+}
