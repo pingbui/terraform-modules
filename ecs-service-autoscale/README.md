@@ -6,7 +6,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.70.0 |
 
 ## Modules
 
@@ -29,9 +29,11 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the ECS cluster | `string` | n/a | yes |
 | <a name="input_disable_scale_in"></a> [disable\_scale\_in](#input\_disable\_scale\_in) | Whether to disable scale-in | `bool` | `false` | no |
+| <a name="input_enabled"></a> [enabled](#input\_enabled) | Controls if resources should be created | `bool` | `true` | no |
 | <a name="input_max_capacity"></a> [max\_capacity](#input\_max\_capacity) | The max capacity of the scalable target | `string` | `"2"` | no |
 | <a name="input_min_capacity"></a> [min\_capacity](#input\_min\_capacity) | The min capacity of the scalable target | `string` | `"1"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name for resources on AWS | `string` | n/a | yes |
+| <a name="input_role_arn"></a> [role\_arn](#input\_role\_arn) | The iam\_role arn used for resources | `string` | `""` | no |
 | <a name="input_scale_in_cooldown"></a> [scale\_in\_cooldown](#input\_scale\_in\_cooldown) | The amount of time, in seconds, after a scale in activity completes before another scale in activity can start. | `string` | `"300"` | no |
 | <a name="input_scale_out_cooldown"></a> [scale\_out\_cooldown](#input\_scale\_out\_cooldown) | The amount of time, in seconds, after a scale out activity completes before another scale out activity can start | `string` | `"60"` | no |
 | <a name="input_schedules"></a> [schedules](#input\_schedules) | Schedule for scaling the target. Schedule: at(yyyy-mm-ddThh:mm:ss) | `list(map(string))` | `[]` | no |
