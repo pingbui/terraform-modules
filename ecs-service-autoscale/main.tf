@@ -1,6 +1,6 @@
 ## IAM role:
 locals {
-  role_arn = var.role_arn == "" ? join("", aws_iam_role.ecs_autoscale.*.id) : var.role_arn
+  role_arn = var.role_arn == "" ? join("", aws_iam_role.ecs_autoscale.*.arn) : var.role_arn
 }
 resource "aws_iam_role" "ecs_autoscale" {
   count = var.enabled && var.role_arn == "" ? 1 : 0
