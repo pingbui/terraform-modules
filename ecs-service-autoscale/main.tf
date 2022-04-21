@@ -88,7 +88,7 @@ resource "aws_appautoscaling_policy" "mem" {
 
 ## Schedules:
 resource "aws_appautoscaling_scheduled_action" "this" {
-  for_each           = var.enabled ? toset(var.schedules) : []
+  for_each           = var.enabled ? {for i in var.schedules: i.name => i } : {}
   name               = each.value.name
   resource_id        = join("", aws_appautoscaling_target.this.*.resource_id)
   scalable_dimension = join("", aws_appautoscaling_target.this.*.scalable_dimension)
