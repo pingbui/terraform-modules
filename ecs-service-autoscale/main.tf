@@ -41,7 +41,7 @@ resource "aws_appautoscaling_target" "this" {
 }
 
 resource "aws_appautoscaling_policy" "cpu" {
-  for_each           = var.tracking_cpu ? [1] : []
+  for_each           = var.tracking_cpu ? toset(["1"]) : []
   name               = "${var.name}-cpu"
   policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.this.resource_id
@@ -61,7 +61,7 @@ resource "aws_appautoscaling_policy" "cpu" {
 }
 
 resource "aws_appautoscaling_policy" "mem" {
-  for_each           = var.tracking_mem ? [1] : []
+  for_each           = var.tracking_mem ? toset(["1"]) : []
   name               = "${var.name}-mem"
   policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.this.resource_id
