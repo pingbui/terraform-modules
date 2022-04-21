@@ -19,12 +19,6 @@ variable "service_name" {
   type        = string
 }
 
-variable "role_arn" {
-  description = "The iam_role arn used for resources"
-  type        = string
-  default     = ""
-}
-
 variable "min_capacity" {
   description = "The min capacity of the scalable target"
   default     = "1"
