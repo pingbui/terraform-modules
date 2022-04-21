@@ -1,3 +1,9 @@
+variable "enabled" {
+  description = "Controls if resources should be created"
+  type        = bool
+  default     = true
+}
+
 variable "name" {
   description = "Name for resources on AWS"
   type        = string
@@ -11,6 +17,12 @@ variable "cluster_name" {
 variable "service_name" {
   description = "Name of the ECS service"
   type        = string
+}
+
+variable "role_arn" {
+  description = "The iam_role arn used for resources"
+  type        = string
+  default     = ""
 }
 
 variable "min_capacity" {

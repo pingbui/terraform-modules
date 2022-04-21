@@ -1,6 +1,10 @@
 ## IAM role:
+locals {
+  role_arn = coalesce(var.role_arn, join("", aws_iam_role.ecs_autoscale.*.id))
+}
 resource "aws_iam_role" "ecs_autoscale" {
-  name = "${var.name}-ecs-autoscale"
+  count = var.enabled && var.role_arn == "" ? 1 : 0
+  name  = "${var.name}-ecs-autoscale"
 
   assume_role_policy = <<EOF
 {
@@ -19,16 +23,18 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_autoscale" {
-  role       = aws_iam_role.ecs_autoscale.id
+  count      = var.enabled && var.role_arn == "" ? 1 : 0
+  role       = join("", aws_iam_role.ecs_autoscale.*.id)
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole"
 }
 
 ## app autoscaling
 resource "aws_appautoscaling_target" "this" {
+  count              = var.enabled ? 1 : 0
   max_capacity       = var.max_capacity
   min_capacity       = var.min_capacity
   resource_id        = "service/${var.cluster_name}/${var.service_name}"
-  role_arn           = aws_iam_role.ecs_autoscale.arn
+  role_arn           = local.role_arn
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 
@@ -41,12 +47,12 @@ resource "aws_appautoscaling_target" "this" {
 }
 
 resource "aws_appautoscaling_policy" "cpu" {
-  for_each           = var.tracking_cpu ? toset(["1"]) : []
+  count              = var.enabled && var.tracking_cpu ? 1 : 0
   name               = "${var.name}-cpu"
   policy_type        = "TargetTrackingScaling"
-  resource_id        = aws_appautoscaling_target.this.resource_id
-  scalable_dimension = aws_appautoscaling_target.this.scalable_dimension
-  service_namespace  = aws_appautoscaling_target.this.service_namespace
+  resource_id        = join("", aws_appautoscaling_target.this.*.resource_id)
+  scalable_dimension = join("", aws_appautoscaling_target.this.*.scalable_dimension)
+  service_namespace  = join("", aws_appautoscaling_target.this.*.service_namespace)
 
   target_tracking_scaling_policy_configuration {
     target_value       = var.target_cpu
@@ -61,12 +67,12 @@ resource "aws_appautoscaling_policy" "cpu" {
 }
 
 resource "aws_appautoscaling_policy" "mem" {
-  for_each           = var.tracking_mem ? toset(["1"]) : []
+  count              = var.enabled && var.tracking_mem ? 1 : 0
   name               = "${var.name}-mem"
   policy_type        = "TargetTrackingScaling"
-  resource_id        = aws_appautoscaling_target.this.resource_id
-  scalable_dimension = aws_appautoscaling_target.this.scalable_dimension
-  service_namespace  = aws_appautoscaling_target.this.service_namespace
+  resource_id        = join("", aws_appautoscaling_target.this.*.resource_id)
+  scalable_dimension = join("", aws_appautoscaling_target.this.*.scalable_dimension)
+  service_namespace  = join("", aws_appautoscaling_target.this.*.service_namespace)
 
   target_tracking_scaling_policy_configuration {
     target_value       = var.target_mem
@@ -82,11 +88,11 @@ resource "aws_appautoscaling_policy" "mem" {
 
 ## Schedules:
 resource "aws_appautoscaling_scheduled_action" "this" {
-  for_each           = toset(var.schedules)
+  for_each           = var.enabled ? toset(var.schedules) : []
   name               = each.value.name
-  service_namespace  = aws_appautoscaling_target.this.service_namespace
-  resource_id        = aws_appautoscaling_target.this.resource_id
-  scalable_dimension = aws_appautoscaling_target.this.scalable_dimension
+  resource_id        = join("", aws_appautoscaling_target.this.*.resource_id)
+  scalable_dimension = join("", aws_appautoscaling_target.this.*.scalable_dimension)
+  service_namespace  = join("", aws_appautoscaling_target.this.*.service_namespace)
   schedule           = each.value.schedule
   timezone           = var.timezone
 
