@@ -27,3 +27,8 @@ output "centos8_self_link" {
   description = "The URI of the CentOS 8 image"
   value       = data.google_compute_image.centos8.self_link
 }
+
+output "centos9_self_link" {
+  description = "The URI of the CentOS 9 image"
+  value       = data.google_compute_image.centos9.self_link
+}
