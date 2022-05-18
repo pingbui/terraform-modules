@@ -6,7 +6,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_google"></a> [google](#provider\_google) | 4.19.0 |
 
 ## Modules
 
@@ -16,7 +16,6 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [google_project_service.compute](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
 | [google_compute_image.centos7](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_image) | data source |
 | [google_compute_image.centos8](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_image) | data source |
 | [google_compute_image.centos9](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_image) | data source |
