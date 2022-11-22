@@ -6,7 +6,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.37.0 |
 
 ## Modules
 
@@ -16,23 +16,21 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_ami.amazon_linux2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
-| [aws_ami.ubuntu_1804](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
-| [aws_ami.ubuntu_2004](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [aws_ami.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 | [aws_region.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_aws_amis"></a> [aws\_amis](#input\_aws\_amis) | n/a | `map(any)` | <pre>{<br>  "amazonlinux2": {<br>    "filters": {<br>      "architecture": "x86_64",<br>      "name": "amzn2-ami-hvm*-gp*",<br>      "root-device-type": "ebs",<br>      "virtualization-type": "hvm"<br>    },<br>    "most_recent": true,<br>    "owners": [<br>      "amazon"<br>    ]<br>  },<br>  "ubuntu1804": {<br>    "filters": {<br>      "architecture": "x86_64",<br>      "name": "ubuntu-minimal/images/*/ubuntu-bionic-18.04-*",<br>      "root-device-type": "ebs",<br>      "virtualization-type": "hvm"<br>    },<br>    "most_recent": true,<br>    "owners": [<br>      "099720109477"<br>    ]<br>  },<br>  "ubuntu2004": {<br>    "filters": {<br>      "architecture": "x86_64",<br>      "name": "ubuntu/images/*/ubuntu-focal-20.04-amd64-*",<br>      "root-device-type": "ebs",<br>      "virtualization-type": "hvm"<br>    },<br>    "most_recent": true,<br>    "owners": [<br>      "099720109477"<br>    ]<br>  }<br>}</pre> | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_amazon_linux2_aws_ami_id"></a> [amazon\_linux2\_aws\_ami\_id](#output\_amazon\_linux2\_aws\_ami\_id) | AMI ID of Amazon Linux 2 |
 | <a name="output_available_aws_availability_zones_names"></a> [available\_aws\_availability\_zones\_names](#output\_available\_aws\_availability\_zones\_names) | A list of the Availability Zone names available to the account |
 | <a name="output_available_aws_availability_zones_zone_ids"></a> [available\_aws\_availability\_zones\_zone\_ids](#output\_available\_aws\_availability\_zones\_zone\_ids) | A list of the Availability Zone IDs available to the account |
+| <a name="output_aws_ami_ids"></a> [aws\_ami\_ids](#output\_aws\_ami\_ids) | A list of AMI IDs |
 | <a name="output_aws_region"></a> [aws\_region](#output\_aws\_region) | Details about selected AWS region |
-| <a name="output_ubuntu_1804_aws_ami_id"></a> [ubuntu\_1804\_aws\_ami\_id](#output\_ubuntu\_1804\_aws\_ami\_id) | AMI ID of Ubuntu 18.04 |
-| <a name="output_ubuntu_2004_aws_ami_id"></a> [ubuntu\_2004\_aws\_ami\_id](#output\_ubuntu\_2004\_aws\_ami\_id) | AMI ID of Ubuntu 20.04 |
