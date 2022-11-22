@@ -13,22 +13,7 @@ output "available_aws_availability_zones_zone_ids" {
   value       = data.aws_availability_zones.available.zone_ids
 }
 
-output "amazon_linux2_aws_ami_id" {
-  description = "AMI ID of Amazon Linux 2"
-  value       = data.aws_ami.amazon_linux2.id
-}
-
-output "ubuntu_1804_aws_ami_id" {
-  description = "AMI ID of Ubuntu 18.04"
-  value       = data.aws_ami.ubuntu_1804.id
-}
-
-output "ubuntu_2004_aws_ami_id" {
-  description = "AMI ID of Ubuntu 20.04"
-  value       = data.aws_ami.ubuntu_2004.id
-}
-
-output "amazon_linux_ecs_id" {
-  description = "AMI ID of Amazon Linux ECS"
-  value       = data.aws_ami.amazon_linux_ecs.id
+output "aws_ami_ids" {
+  description = "A list of AMI IDs"
+  value       = { for k, v in data.aws_ami.this : k => tomap({ id = v.image_id, root_device_name = v.root_device_name }) }
 }
