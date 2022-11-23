@@ -15,7 +15,7 @@ variable "aws_amis" {
       owners      = ["amazon"]
       most_recent = true
       filters = {
-        name                = ["amzn2-ami-hvm*-gp*"]
+        name                = ["amzn2-ami-kernel-*hvm*-gp*", "amzn2-ami-hvm*-gp*"]
         virtualization-type = ["hvm"]
         root-device-type    = ["ebs"]
         architecture        = ["x86_64"]
@@ -26,6 +26,16 @@ variable "aws_amis" {
       most_recent = true
       filters = {
         name                = ["ubuntu/images/*/ubuntu-focal-20.04-amd64-*"]
+        virtualization-type = ["hvm"]
+        root-device-type    = ["ebs"]
+        architecture        = ["x86_64"]
+      }
+    }
+    "ubuntu2204" = {
+      owners      = ["099720109477"]
+      most_recent = true
+      filters = {
+        name                = ["ubuntu/images/*/ubuntu-jammy-22.04-*"]
         virtualization-type = ["hvm"]
         root-device-type    = ["ebs"]
         architecture        = ["x86_64"]
