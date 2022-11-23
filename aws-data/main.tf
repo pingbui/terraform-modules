@@ -14,7 +14,7 @@ data "aws_ami" "this" {
     for_each = try(each.value.filters, {})
     content {
       name   = filter.key
-      values = [filter.value]
+      values = filter.value
     }
   }
 }
