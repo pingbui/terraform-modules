@@ -3,7 +3,7 @@ data "aws_region" "selected" {}
 data "aws_availability_zones" "available" {}
 
 locals {
-  default_amis = {
+  default_amis = var.use_default ? tomap({
     "ubuntu1804" = {
       owners      = ["099720109477"]
       most_recent = true
@@ -44,9 +44,9 @@ locals {
         architecture        = ["x86_64"]
       }
     }
-  }
+  }) : tomap({})
 
-  aws_amis = var.use_default ? merge(local.default_amis, var.aws_amis) : var.aws_amis
+  aws_amis = merge(local.default_amis, var.aws_amis)
 }
 
 data "aws_ami" "this" {
