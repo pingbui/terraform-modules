@@ -12,7 +12,6 @@ repos:
           - --args=--disable-rule=terraform_required_version
           - --args=--disable-rule=terraform_required_providers
       - id: terraform_tfsec
-      - id: terrascan
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.3.0
