@@ -5,8 +5,6 @@ repos:
       - id: terraform_fmt
       - id: terraform_validate
       - id: terraform_docs
-        args:
-          - --hook-config=--add-to-existing-file=true
       - id: terraform_tflint
         args:
           - --args=--disable-rule=terraform_required_version
