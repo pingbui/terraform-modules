@@ -29,5 +29,5 @@ output "key_pair" {
 }
 
 output "key_pair_public" {
-  value = base64decode(try(aws_lightsail_key_pair.this[0].public_key, ""))
+  value = try(aws_lightsail_key_pair.this[0].public_key, "")
 }
