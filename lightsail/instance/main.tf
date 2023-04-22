@@ -23,7 +23,7 @@ resource "aws_lightsail_instance" "this" {
     content {
       type          = try(var.add_ons.type, "AutoSnapshot")
       snapshot_time = try(var.add_ons.snapshot_time, "03:00")
-      status        = try(var.add_ons.status, "Enabled")
+      status        = try(var.add_ons.status, "Disabled")
     }
   }
 

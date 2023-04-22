@@ -14,6 +14,16 @@ output "lightsail_instances" {
   description = "The created Lightsail instances."
 }
 
+output "static_ips" {
+  value = { for v in aws_lightsail_static_ip.this : v.name => {
+    arn        = v.arn
+    ip_address = v.ip_address
+    }
+  }
+
+  description = "The list of static ips."
+}
+
 output "key_pair" {
   value = try(aws_lightsail_key_pair.this[0].id, null)
 }
