@@ -27,3 +27,7 @@ output "static_ips" {
 output "key_pair" {
   value = try(aws_lightsail_key_pair.this[0].id, null)
 }
+
+output "key_pair_public" {
+  value = base64decode(try(aws_lightsail_key_pair.this[0].public_key, ""))
+}

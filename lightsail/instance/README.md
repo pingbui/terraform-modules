@@ -105,6 +105,7 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_key_pair"></a> [key\_pair](#output\_key\_pair) | n/a |
+| <a name="output_key_pair_public"></a> [key\_pair\_public](#output\_key\_pair\_public) | n/a |
 | <a name="output_lightsail_instances"></a> [lightsail\_instances](#output\_lightsail\_instances) | The created Lightsail instances. |
 | <a name="output_static_ips"></a> [static\_ips](#output\_static\_ips) | The list of static ips. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
