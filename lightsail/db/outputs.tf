@@ -1,5 +1,5 @@
 output "id" {
-  value       = aws_lightsail_database.this.id
+  value       = try(aws_lightsail_database.this[0].id, "")
   description = "The ARN of the Lightsail instance."
 }
 
