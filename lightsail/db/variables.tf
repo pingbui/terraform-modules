@@ -9,7 +9,8 @@ variable "name" {
 }
 
 variable "availability_zone" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "blueprint_id" {
