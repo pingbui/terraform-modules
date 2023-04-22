@@ -1,3 +1,9 @@
+variable "create" {
+  type        = bool
+  default     = true
+  description = "Whether to create resources."
+}
+
 variable "name" {
   type = string
 }
@@ -34,6 +40,11 @@ variable "master_password" {
   type      = string
   default   = null
   sensitive = true
+}
+
+variable "random_password_length" {
+  type    = number
+  default = 20
 }
 
 variable "preferred_backup_window" {
