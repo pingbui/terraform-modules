@@ -14,11 +14,11 @@ resource "aws_ses_domain_identity" "this" {
 
 ## Verify:
 resource "aws_route53_record" "verify" {
-  zone_id  = data.aws_route53_zone.public.zone_id
-  name     = "_amazonses.${var.domain_name}"
-  records  = [aws_ses_domain_identity.this.verification_token]
-  type     = "TXT"
-  ttl      = "600"
+  zone_id = data.aws_route53_zone.public.zone_id
+  name    = "_amazonses.${var.domain_name}"
+  records = [aws_ses_domain_identity.this.verification_token]
+  type    = "TXT"
+  ttl     = "600"
 }
 
 ## DKIM:
@@ -27,10 +27,10 @@ resource "aws_ses_domain_dkim" "this" {
 }
 
 resource "aws_route53_record" "dkim" {
-  count    = 3
-  zone_id  = data.aws_route53_zone.public.zone_id
-  name     = "${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}._domainkey.${var.domain_name}"
-  records  = ["${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}.dkim.amazonses.com"]
-  type     = "CNAME"
-  ttl      = "600"
+  count   = 3
+  zone_id = data.aws_route53_zone.public.zone_id
+  name    = "${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}._domainkey.${var.domain_name}"
+  records = ["${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}.dkim.amazonses.com"]
+  type    = "CNAME"
+  ttl     = "600"
 }

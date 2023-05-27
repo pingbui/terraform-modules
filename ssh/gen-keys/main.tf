@@ -1,5 +1,5 @@
 variable "ssh_keys" {
-  type    = list
+  type    = list(any)
   default = []
 }
 
