@@ -44,6 +44,26 @@ locals {
         architecture        = ["x86_64"]
       }
     }
+    "al2023-arm" = {
+      owners      = ["amazon"]
+      most_recent = true
+      filters = {
+        name                = ["al2023-ami-2023*-arm64"]
+        virtualization-type = ["hvm"]
+        root-device-type    = ["ebs"]
+        architecture        = ["arm64"]
+      }
+    }
+    "ubuntu2004-arm" = {
+      owners      = ["099720109477"]
+      most_recent = true
+      filters = {
+        name                = ["ubuntu/images/*/ubuntu-focal-20.04-arm64-*"]
+        virtualization-type = ["hvm"]
+        root-device-type    = ["ebs"]
+        architecture        = ["arm64"]
+      }
+    }
   }) : tomap({})
 
   aws_amis = merge(local.default_amis, var.aws_amis)

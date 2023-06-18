@@ -18,12 +18,12 @@ resource "aws_lightsail_instance" "this" {
   tags              = var.tags
 
   dynamic "add_on" {
-    for_each = try(var.add_ons.status, "") == "Enabled" ? [1] : []
+    for_each = var.add_ons == {} ? [] : [1]
 
     content {
       type          = try(var.add_ons.type, "AutoSnapshot")
       snapshot_time = try(var.add_ons.snapshot_time, "03:00")
-      status        = "Enabled"
+      status        = try(var.add_ons.status, "Disabled")
     }
   }
 
