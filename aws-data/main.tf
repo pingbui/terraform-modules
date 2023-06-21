@@ -64,6 +64,16 @@ locals {
         architecture        = ["arm64"]
       }
     }
+    "al2023" = {
+      owners      = ["amazon"]
+      most_recent = true
+      filters = {
+        name                = ["al2023-ami-2023*-x86_64"]
+        virtualization-type = ["hvm"]
+        root-device-type    = ["ebs"]
+        architecture        = ["x86_64"]
+      }
+    }
   }) : tomap({})
 
   aws_amis = merge(local.default_amis, var.aws_amis)
