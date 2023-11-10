@@ -44,10 +44,10 @@ resource "aws_ec2_tag" "spot_instance_tags" {
 
 ## EIP:
 resource "aws_eip" "this" {
-  count             = var.create && var.create_eip ? var.number_of_instances : 0
-  vpc               = true
-  network_interface = module.ec2_instances[count.index].primary_network_interface_id[0]
-  tags              = module.ec2_instances[count.index].tags_all[0]
+  count    = var.create && var.create_eip ? var.number_of_instances : 0
+  domain   = "vpc"
+  instance = module.ec2_instances[count.index].id[0]
+  tags     = module.ec2_instances[count.index].tags_all[0]
 
   depends_on = [
     module.ec2_instances,
