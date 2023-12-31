@@ -28,6 +28,12 @@ variable "save_dir" {
   default     = "."
 }
 
+variable "save_file" {
+  description = "Whether to save file to local."
+  type        = bool
+  default     = true
+}
+
 variable "tags" {
   description = "A map of tags to add to key pair resource."
   type        = map(string)
