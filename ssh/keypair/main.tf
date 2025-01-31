@@ -1,24 +1,37 @@
 provider "tls" {}
 
 resource "tls_private_key" "ssh" {
-  count     = var.create_key_pair ? length(var.names) : 0
-  algorithm = "RSA"
+  for_each  = var.create_key_pair ? toset(var.names) : []
+  algorithm = var.algorithm
   rsa_bits  = var.rsa_bits
 }
 
 resource "local_file" "private" {
-  count           = var.create_key_pair && var.save_file ? length(var.names) : 0
-  content         = element(tls_private_key.ssh[*].private_key_pem, count.index)
-  filename        = "${var.save_dir}/${var.names[count.index]}"
+  for_each        = var.create_key_pair && var.save_file ? toset(var.names) : []
+  content         = try(tls_private_key.ssh[each.value].private_key_pem, "")
+  filename        = "${var.save_dir}/${each.value}"
   file_permission = "0600"
 }
 
 resource "aws_key_pair" "this" {
-  count = var.create_key_pair ? length(var.names) : 0
+  for_each = var.create_key_pair ? toset(var.names) : []
 
-  key_name        = var.names[count.index]
+  key_name        = each.value
   key_name_prefix = var.key_name_prefix
-  public_key      = element(tls_private_key.ssh[*].public_key_openssh, count.index)
+  public_key      = try(tls_private_key.ssh[each.value].public_key_openssh, "")
 
   tags = var.tags
+}
+
+resource "aws_ssm_parameter" "this" {
+  for_each = var.create_key_pair && var.save_ssm ? toset(var.names) : []
+
+  name        = each.value
+  type        = "SecureString"
+  description = "SSH private key ${each.value}"
+
+  value     = try(tls_private_key.ssh[each.value].private_key_pem, "")
+  key_id    = var.key_id
+  data_type = "text"
+  tags      = var.tags
 }
