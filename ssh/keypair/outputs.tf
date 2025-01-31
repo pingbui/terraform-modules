@@ -1,11 +1,11 @@
 output "public_keys" {
   description = "A map of public keys"
-  value       = zipmap(var.names, try(tls_private_key.ssh[*].public_key_openssh, []))
+  value       = zipmap(var.names, tls_private_key.ssh[*].public_key_openssh)
 }
 
 output "private_keys" {
   description = "A map of private keys"
-  value       = zipmap(var.names, try(tls_private_key.ssh[*].private_key_pem, []))
+  value       = zipmap(var.names, tls_private_key.ssh[*].private_key_pem)
   sensitive   = true
 }
 
